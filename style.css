@@ -1,0 +1,44 @@
+:root {
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+#app-container {
+    width: 80%;
+    height: calc(100% - 32px);
+    margin: 16px auto;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 16px;
+    min-width: 50%;
+    max-height: 75%;
+}
+
+.box {
+    border: 1px solid #000;
+    padding: 16px;
+}
+
+input[name='u'] {
+    width: 100%;
+}
+
+.flexcol {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.flexcol input[type='text'] {
+    flex-grow: 1;
+}
