@@ -61,7 +61,7 @@ async function requestToPromise(request) {
 // a result of null means that the bang doesn't exist in the DB
 async function getBangFromDB(trigger) {
     if (trigger===null) return null;
-    return requestToPromise(db.transaction("bangs").objectStore("bangs").get(trigger))
+    return requestToPromise(db.transaction("bangs").objectStore("bangs").get(trigger));
 }
 
 // gets default bang from settings
@@ -127,7 +127,7 @@ function refreshBangsList() {
 function renderIndex() {
     setPage(`<div id="app-container">
 <h1>mallard</h1>
-<p>mallard is like unduck/unduckify but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
+<p>mallard is like unduck/unduckified but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
 <p>you can set up your <a is="modal-open" modal="settings">settings</a> here.</p>
 <p class="flexcol"><input type="text" alt="Link" value="https://minerobber9000.github.io/mallard/?q=%s" readonly><button data-what="copy">Copy</button></p>
 <p>or type a query here:</p>
@@ -175,7 +175,7 @@ function renderIndex() {
 <dialog id="new-user-wizard">
 <p style="text-align: right;"><button is="dialog-close">Close</button></p>
 <h1>Welcome to mallard!</h1>
-<p>mallard is like unduck/unduckify but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
+<p>mallard is like unduck/unduckified but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
 <p>before we continue, you'll need to decide on a default bang. this is where your search will go if you don't supply a bang to send it somewhere else.</p>
 <form method="dialog">
 <p><label>Default bang: <select name="defaultbang">
@@ -433,7 +433,7 @@ async function getRedirectUrl(query) {
     }
 
     // encode the query according to fmt flags
-    // this is the *correct* way to do this as opposed to whatever unduck/unduckify do with encode-but-not-slashes
+    // this is the *correct* way to do this as opposed to whatever unduck/unduckified do with encode-but-not-slashes
     let encodedQuery = cleanQuery;
     if (fmtFlag(bang, "url_encode_placeholder")) {
         encodedQuery = encodeURIComponent(encodedQuery);
