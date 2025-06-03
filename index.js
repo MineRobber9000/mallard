@@ -1,74 +1,3 @@
-// indexedDB used to store bangs
-// this way you can have custom bangs and it all Just Works(tm)
-let db;
-
-// utility function to let you set the page contents
-function setPage(html) {
-    document.getElementById("app").innerHTML = html;
-}
-
-// loads the DB
-// if this fails you can't do anything so we set the page to show an error and bail
-async function loadDB() {
-    if (!('indexedDB' in window)) {
-        setPage(`<div id="app-container">
-<h1>mallard error</h1>
-<p>your browser doesn't support indexeddb, so you can't use mallard. sorry</p>
-</div>`);
-        return false;
-    }
-    
-    return new Promise((resolve, reject) => {
-        let request = indexedDB.open("mallard", 1);
-        request.onerror = (e) => {
-            console.error(request.error);
-            setPage(`<div id="app-container">
-<h1>mallard error</h1>
-<p>something went wrong loading the db (so you can't use mallard right now); check the console for more info and bug minerobber</p>
-</div>`);
-            resolve(false);
-        };
-        
-        request.onsuccess = (e) => {
-            db = request.result;
-            db.onerror = (e) => {
-                console.error("DB error");
-                console.error(e.target.error);
-            }
-            resolve(true);
-        };
-        
-        request.onupgradeneeded = (e) => {
-            const db = request.result;
-            if (e.oldVersion<1) {
-                const bangs = db.createObjectStore("bangs", {keyPath: "t"});
-                const settings = db.createObjectStore("settings", {});
-            }
-        }
-    });
-}
-
-async function requestToPromise(request) {
-    return new Promise((resolve, reject) => {
-        request.onsuccess = (e) => {
-            resolve(e.target.result ?? null);
-        }
-    });
-}
-
-// loads bang from DB (obviously requires DB to be loaded)
-// converts weird callback hell into "normal" async js
-// a result of null means that the bang doesn't exist in the DB
-async function getBangFromDB(trigger) {
-    if (trigger===null) return null;
-    return requestToPromise(db.transaction("bangs").objectStore("bangs").get(trigger));
-}
-
-// gets default bang from settings
-async function getDefaultBang() {
-    return requestToPromise(db.transaction("settings").objectStore("settings").get("default-bang"));
-}
-
 // refreshes the bangs list in the settings menu
 function refreshBangsList() {
     let bangedit = document.getElementById("new-or-edit-bang");
@@ -77,10 +6,8 @@ function refreshBangsList() {
     bangslist.innerHTML = `<li><a is="modal-open" modal="new-or-edit-bang">New bang</a></li>`;
     defaultbang.innerHTML = "";
     defaultbang.disabled = true;
-    let hasBangs = false;
-    let bangs = db.transaction("bangs").objectStore("bangs");
-    bangs.getAll().onsuccess = async (ev) => {
-        const bangs = ev.target.result;
+    getAllBangs().then((bangs) => {
+        let hasBangs = false;
         bangs.forEach((bang) => {
             // bangslist
             let li = document.createElement("li");
@@ -90,15 +17,13 @@ function refreshBangsList() {
             });
             li.children[1].addEventListener("click",() => {
                 if (confirm(`Are you sure you wish to delete ${bang.s} (!${bang.t})?`)) {
-                    let request = db.transaction("bangs","readwrite").objectStore("bangs").delete(bang.t);
-                    request.onerror = (ev) => {
-                        alert(`Error deleting bang: ${request.error.message}`);
-                        refreshBangsList();
-                    }
-                    request.onsuccess = (ev) => {
+                    deleteBang(bang.t).then((ev) => {
                         //alert("Bang deleted successfully!");
                         refreshBangsList();
-                    }
+                    }, (ev) => {
+                        alert(`Error deleting bang: ${request.error.message}`);
+                        refreshBangsList();
+                    });
                 }
             });
             li.children[2].addEventListener("click",() => {
@@ -114,6 +39,8 @@ function refreshBangsList() {
             defaultbang.appendChild(option);
             hasBangs = true;
         });
+        return hasBangs;
+    }).then(async (hasBangs) => {
         if (hasBangs) {
             let realDefaultBang = await getDefaultBang();
             defaultbang.selectedIndex = -1;
@@ -124,7 +51,7 @@ function refreshBangsList() {
             }
             defaultbang.disabled = false;
         }
-    };
+    });
 }
 
 // basic default homepage render
@@ -203,7 +130,7 @@ function renderIndex() {
     exportsettings.addEventListener("click",async ()=>{
         let settings_export = {}
         settings_export.default_bang = await getDefaultBang();
-        settings_export.bangs = await requestToPromise(db.transaction("bangs").objectStore("bangs").getAll());
+        settings_export.bangs = await getAllBangs();
         
         let blob = new Blob([JSON.stringify(settings_export)],{type:"application/json"});
         let blobUrl = URL.createObjectURL(blob);
@@ -230,15 +157,14 @@ function renderIndex() {
             settings_export = JSON.parse(settings_export);
             if (settings_export.default_bang) {
                 if ((typeof settings_export.default_bang)==="string") {
-                    db.transaction("settings","readwrite").objectStore("settings").put(settings_export.default_bang, "default-bang");
+                    setDefaultBang(settings_export.default_bang);
                 } else {
                     throw new CustomError("default_bang must be string!");
                 }
             }
             if (settings_export.bangs) {
                 if (settings_export.bangs instanceof Array) {
-                    let obj_store = db.transaction("bangs", "readwrite").objectStore("bangs");
-                    settings_export.bangs.forEach((bang)=>obj_store.put(bang));
+                    settings_export.bangs.forEach((bang)=>putBang(bang));
                 } else {
                     throw new CustomError("bangs must be array!");
                 }
@@ -275,22 +201,19 @@ function renderIndex() {
             if (values.url_encode_space_to_plus.checked) fmt.push("url_encode_space_to_plus");
             bang.fmt = fmt;
         }
-        let request = db.transaction("bangs", "readwrite").objectStore("bangs").put(bang);
-        request.onerror = (ev) => {
+        putBang(bang).then((ev) => {
+            //alert("Bang added successfully!");
+            refreshBangsList();
+        }, (ev) => {
             alert(`Error adding bang: ${request.error.message}`);
             bangedit.loadBang(bang);
             bangedit.open();
-        };
-        request.onsuccess = (ev) => {
-            //alert("Bang added successfully!");
-            refreshBangsList();
-        }
-        setTimeout(()=>bangedit.resetForm(),100);
+        }).then(()=>setTimeout(()=>bangedit.resetForm(),100));
     });
     let defaultbang = document.getElementById("defaultbang");
     defaultbang.addEventListener("change",(ev)=>{
         if (ev.target.disabled) return;
-        db.transaction("settings","readwrite").objectStore("settings").put(ev.target.options[ev.target.selectedIndex].value,"default-bang");
+        setDefaultBang(ev.target.options[ev.target.selectedIndex].value);
     });
     refreshBangsList();
     let kagiwizard = document.getElementById("kagi-wizard");
@@ -325,14 +248,14 @@ function renderIndex() {
         if (trigger===" custom") {
             let setDefault = (ev) => {
                 let form = ev.target.form;
-                db.transaction("settings","readwrite").objectStore("settings").put(form.elements.t.value,"default-bang");
+                setDefaultBang(form.elements.t.value);
             }
             bangedit.addEventListener("formsubmit", setDefault, {once: true});
             bangedit.addEventListener("close", ()=>bangedit.removeEventListener("formsubmit", setDefault), {once: true});
             bangedit.showModal();
             return;
         }
-        db.transaction("settings","readwrite").objectStore("settings").put(trigger,"default-bang");
+        setDefaultBang(trigger);
         fetch("./bangs.json").then((resp)=>{
             if (!resp.ok) {
                 console.log("error loading bangs.json");
