@@ -84,7 +84,7 @@ function refreshBangsList() {
         bangs.forEach((bang) => {
             // bangslist
             let li = document.createElement("li");
-            li.innerHTML = `${bang.s} (!${bang.t}; <a is="modal-open" modal="new-or-edit-bang">edit</a> or <a href='#'>delete</a>)`
+            li.innerHTML = `${bang.s} (!${bang.t}; <a is="modal-open" modal="new-or-edit-bang">edit</a> / <a href='#'>delete</a> / <a is="modal-open" modal="new-or-edit-bang">clone</a>)`
             li.children[0].addEventListener("click",() => {
                 bangedit.loadBang(bang);
             });
@@ -100,6 +100,11 @@ function refreshBangsList() {
                         refreshBangsList();
                     }
                 }
+            });
+            li.children[2].addEventListener("click",() => {
+                bangedit.loadBang(bang);
+                bangedit.form.elements.t.value = "";
+                setTimeout(()=>bangedit.form.elements.t.focus(),100);
             });
             bangslist.appendChild(li);
             // defaultbang
