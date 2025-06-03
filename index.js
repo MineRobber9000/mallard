@@ -30,7 +30,7 @@ function refreshBangsList() {
             });
             // clone link
             li.children[2].addEventListener("click",() => {
-                bangedit.loadBang(bang);
+                bangedit.loadBang(bang, false);
                 bangedit.form.elements.t.value = "";
                 setTimeout(()=>bangedit.form.elements.t.focus(),100);
             });
@@ -208,8 +208,11 @@ function renderIndex() {
             if (values.url_encode_space_to_plus.checked) fmt.push("url_encode_space_to_plus");
             bang.fmt = fmt;
         }
-        putBang(bang).then((ev) => {
+        putBang(bang).then(async (ev) => {
             //alert("Bang added successfully!");
+            if ((bangedit.loadedBang!==null)&&(bangedit.loadedBang!=bang.t)) {
+                await deleteBang(bangedit.loadedBang);
+            }
             refreshBangsList();
         }, (ev) => {
             alert(`Error adding bang: ${request.error.message}`);

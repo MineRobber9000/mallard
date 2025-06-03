@@ -33,13 +33,15 @@ if ('customElements' in window) {
             this.querySelectorAll("button[is='dialog-close']").forEach((btn)=>{
                 btn.addEventListener("click",()=>this.resetForm());
             });
+            this.loadedBang = null;
         }
         
         resetForm() {
             this.form.reset();
+            this.loadedBang = null;
         }
         
-        loadBang(bang) {
+        loadBang(bang, track = true) {
             this.resetForm();
             Object.keys(bang).forEach((key)=>{
                 if (key==="fmt") return;
@@ -49,6 +51,7 @@ if ('customElements' in window) {
                 this.form.querySelectorAll("ul input").forEach((i)=>(i.checked=false));
                 bang.fmt.forEach((s)=>(this.form.elements[s].checked=true));
             }
+            if (track) this.loadedBang = bang.t;
         }
     }
     
