@@ -87,6 +87,25 @@ async function putBang(bang) {
     return requestToPromise(db.transaction("bangs","readwrite").objectStore("bangs").put(bang));
 }
 
+// delete bang
 async function deleteBang(trigger) {
     return requestToPromise(db.transaction("bangs","readwrite").objectStore("bangs").delete(trigger));
+}
+
+// convert base64url string into bang object
+function base64ToBang(b64) {
+    const binstring = atob(b64.replaceAll("-","+").replaceAll("_","/"));
+    const data = Uint8Array.from(binstring, (c)=>c.codePointAt(0));
+    const decoder = new TextDecoder();
+    const str = decoder.decode(data);
+    return JSON.parse(str) ?? null;
+}
+
+// convert bang object to base64url string
+function bangToBase64(bang) {
+    const str = JSON.stringify(bang);
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const binstring = Array.from(data,(c)=>String.fromCharCode(c)).join('');
+    return btoa(binstring).replaceAll("+","-").replaceAll("/","_");
 }

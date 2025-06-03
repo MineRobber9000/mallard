@@ -11,7 +11,7 @@ function refreshBangsList() {
         bangs.forEach((bang) => {
             // bangslist
             let li = document.createElement("li");
-            li.innerHTML = `${bang.s} (!${bang.t}; <a is="modal-open" modal="new-or-edit-bang">edit</a> / <a href='#'>delete</a> / <a is="modal-open" modal="new-or-edit-bang">clone</a>)`
+            li.innerHTML = `${bang.s} (!${bang.t}; <a is="modal-open" modal="new-or-edit-bang">edit</a> / <a href='#'>delete</a> / <a is="modal-open" modal="new-or-edit-bang">clone</a> / <a href='#'>share</a>)`
             // edit link
             li.children[0].addEventListener("click",() => {
                 bangedit.loadBang(bang);
@@ -33,6 +33,16 @@ function refreshBangsList() {
                 bangedit.loadBang(bang, false);
                 bangedit.form.elements.t.value = "";
                 setTimeout(()=>bangedit.form.elements.t.focus(),100);
+            });
+            // share link
+            li.children[3].addEventListener("click",() => {
+                const b64 = bangToBase64(bang);
+                const url = new URL(window.location.href);
+                url.searchParams.set("q","!settings");
+                url.searchParams.set("share", b64);
+                url.hash = "";
+                navigator.clipboard.writeText(url.href);
+                alert("Copied share link!");
             });
             bangslist.appendChild(li);
             // defaultbang
@@ -305,11 +315,21 @@ function fmtFlag(bang, flag) {
 }
 
 // gets a redirect URL for a given query
-async function getRedirectUrl(query) {
+async function getRedirectUrl(query, share = null) {
     if (query==="" || query==="!" || query==="!settings") {
         renderIndex();
         // if !settings is the query, open the settings modal automagically
-        if (query==="!settings") document.getElementById("settings").showModal();
+        if (query==="!settings") {
+            document.getElementById("settings").showModal();
+            if (share!==null && share!=="") {
+                const bang = base64ToBang(share);
+                if (bang!==null) {
+                    const bangedit = document.getElementById("new-or-edit-bang");
+                    bangedit.loadBang(bang);
+                    bangedit.showModal();
+                }
+            }
+        }
         // if we don't have a default bang then open the new user wizard
         if ((await getDefaultBang())==null) {
             document.getElementById("settings").close();
@@ -398,8 +418,9 @@ async function doRedirect() {
 
     const url = new URL(window.location.href);
     const query = url.searchParams.get("q")?.trim() ?? "";
+    const share = url.searchParams.get("share")?.trim() ?? null;
     
-    let redirectUrl = await getRedirectUrl(query);
+    let redirectUrl = await getRedirectUrl(query, share);
     if (redirectUrl!==null) {
         window.location.href = redirectUrl;
     }
