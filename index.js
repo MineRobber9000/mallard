@@ -12,9 +12,11 @@ function refreshBangsList() {
             // bangslist
             let li = document.createElement("li");
             li.innerHTML = `${bang.s} (!${bang.t}; <a is="modal-open" modal="new-or-edit-bang">edit</a> / <a href='#'>delete</a> / <a is="modal-open" modal="new-or-edit-bang">clone</a>)`
+            // edit link
             li.children[0].addEventListener("click",() => {
                 bangedit.loadBang(bang);
             });
+            // delete link
             li.children[1].addEventListener("click",() => {
                 if (confirm(`Are you sure you wish to delete ${bang.s} (!${bang.t})?`)) {
                     deleteBang(bang.t).then((ev) => {
@@ -26,6 +28,7 @@ function refreshBangsList() {
                     });
                 }
             });
+            // clone link
             li.children[2].addEventListener("click",() => {
                 bangedit.loadBang(bang);
                 bangedit.form.elements.t.value = "";
@@ -118,6 +121,7 @@ function renderIndex() {
 <p><button type="submit">Submit</button> <a is="modal-open" modal="import-settings">(or import settings from another computer)</a></p>
 </form>
 </dialog>`);
+    // copy button
     let copybtn = document.querySelector("button[data-what='copy']");
     copybtn.addEventListener("click",(ev)=>{
         let copyText = copybtn.parentElement.querySelector("input");
@@ -126,6 +130,7 @@ function renderIndex() {
         navigator.clipboard.writeText(copyText.value);
         alert("Copied!");
     });
+    // export settings link (in settings modal)
     let exportsettings = document.getElementById("export-settings");
     exportsettings.addEventListener("click",async ()=>{
         let settings_export = {}
@@ -142,6 +147,7 @@ function renderIndex() {
         a.click();
         URL.revokeObjectURL(blobUrl);
     });
+    // import settings modal
     let importsettings = document.getElementById("import-settings");
     importsettings.querySelector("input[type='file']").addEventListener("change",async (ev)=>{
         let files = ev.target.files;
@@ -178,6 +184,7 @@ function renderIndex() {
             console.error(e);
         }
     });
+    // new/edit bang modal
     let bangedit = document.getElementById("new-or-edit-bang");
     bangedit.addEventListener("formsubmit",(e)=>{
         const values = e.detail.form.elements;
@@ -210,12 +217,15 @@ function renderIndex() {
             bangedit.open();
         }).then(()=>setTimeout(()=>bangedit.resetForm(),100));
     });
+    // default bang selector (in settings modal)
     let defaultbang = document.getElementById("defaultbang");
     defaultbang.addEventListener("change",(ev)=>{
         if (ev.target.disabled) return;
         setDefaultBang(ev.target.options[ev.target.selectedIndex].value);
     });
+    // refresh the bangs list for the first time
     refreshBangsList();
+    // kagi bang import wizard
     let kagiwizard = document.getElementById("kagi-wizard");
     kagiwizard.querySelector("form").addEventListener("submit",(ev)=>{
         let trigger = ev.target.elements.t.value;
@@ -241,6 +251,7 @@ function renderIndex() {
             bangedit.loadBang(bangdata);
         });        
     });
+    // new user wizard
     let newuserwizard = document.getElementById("new-user-wizard");
     newuserwizard.querySelector("form").addEventListener("submit",(ev) => {
         let defaultbang = ev.target.elements.defaultbang;
@@ -278,6 +289,7 @@ function renderIndex() {
             bangedit.showModal();
         });        
     });
+    // close new user wizard when the user asks to import their old settings instead
     newuserwizard.querySelector("a[modal='import-settings']").addEventListener("click",()=>{
         newuserwizard.close();
     });
