@@ -61,65 +61,65 @@ function refreshBangsList() {
 // includes modal dialogs
 function renderIndex() {
     setPage(`<div id="app-container">
-<h1>mallard</h1>
-<p>mallard is like unduck/unduckified but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
-<p>you can set up your <a is="modal-open" modal="settings">settings</a> here.</p>
-<p class="flexcol"><input type="text" alt="Link" value="https://minerobber9000.github.io/mallard/?q=%s" readonly><button data-what="copy">Copy</button></p>
-<p>or type a query here:</p>
-<p><form method="get" class="flexcol"><input type="text" alt="Search" name="q"><button type="submit">Search</button></form></p>
+    <h1>mallard</h1>
+    <p>mallard is like unduck/unduckified but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
+    <p>you can set up your <a is="modal-open" modal="settings">settings</a> here.</p>
+    <p class="flexcol"><input type="text" alt="Link" value="https://minerobber9000.github.io/mallard/?q=%s" readonly><button data-what="copy">Copy</button></p>
+    <p>or type a query here:</p>
+    <p><form method="get" class="flexcol"><input type="text" alt="Search" name="q"><button type="submit">Search</button></form></p>
 </div>
 <dialog id="settings">
-<p style="text-align: right;"><button is="dialog-close">Close</button></p>
-<h1>Bangs</h1>
-<div class="box">
-<ul id="bangs-list"></ul>
-</div>
-<p><label>Default bang: <select id="defaultbang" disabled></select></label></p>
-<p><a href="#" id="export-settings">Export settings</a> / <a is="modal-open" modal="import-settings">Import settings</a>
+    <p style="text-align: right;"><button is="dialog-close">Close</button></p>
+    <h1>Bangs</h1>
+    <div class="box">
+        <ul id="bangs-list"></ul>
+    </div>
+    <p><label>Default bang: <select id="defaultbang" disabled></select></label></p>
+    <p><a href="#" id="export-settings">Export settings</a> / <a is="modal-open" modal="import-settings">Import settings</a>
 </dialog>
 <dialog id="import-settings">
-<p style="text-align: right;"><button is="dialog-close">Close</button></p>
-<h1>settings import</h1>
-<p><form><label>file: <input type="file" accept=".json,application/json,text/json"></label></form></p>
+    <p style="text-align: right;"><button is="dialog-close">Close</button></p>
+    <h1>settings import</h1>
+    <p><form><label>file: <input type="file" accept=".json,application/json,text/json"></label></form></p>
 </dialog>
 <dialog id="new-or-edit-bang" is="bang-edit">
-<p style="text-align: right;"><button is="dialog-close">Close</button></p>
-<form method="dialog">
-<p><label>Bang name: <input type="text" name="s" required></label></p>
-<p><label>Domain: <input type="text" name="d" required></label></p>
-<p><label>Alternative domain (leave blank if not required): <input type="text" name="ad"></label></p>
-<p><label>Trigger (!&lt;this&gt; to use this bang): <input type="text" name="t" required></label></p>
-<p><label>URL Template (use <code>{{{s}}}</code> as placeholder):<br><input type="text" name="u" required></label></p>
-<p>Format flags (leave these alone if you don't understand them):<ul>
-<li><label>Open the base path (domain or alternate domain) when no query is given: <input type="checkbox" name="open_base_path" checked></label></li>
-<li><label>URL encode queries: <input type="checkbox" name="url_encode_placeholder" checked></label></li>
-<li><label>When URL encoding queries, encode space as '+': <input type="checkbox" name="url_encode_space_to_plus" checked></label></li>
-</ul><p>
-<p><button type="submit">Submit</button> <a is="modal-open" modal="kagi-wizard">(import kagi/ddg bang)</a></p>
-</form>
+    <p style="text-align: right;"><button is="dialog-close">Close</button></p>
+    <form method="dialog">
+        <p><label>Bang name: <input type="text" name="s" required></label></p>
+        <p><label>Domain: <input type="text" name="d" required></label></p>
+        <p><label>Alternative domain (leave blank if not required): <input type="text" name="ad"></label></p>
+        <p><label>Trigger (!&lt;this&gt; to use this bang): <input type="text" name="t" required></label></p>
+        <p><label>URL Template (use <code>{{{s}}}</code> as placeholder):<br><input type="text" name="u" required></label></p>
+        <p>Format flags (leave these alone if you don't understand them):<ul>
+            <li><label>Open the base path (domain or alternate domain) when no query is given: <input type="checkbox" name="open_base_path" checked></label></li>
+            <li><label>URL encode queries: <input type="checkbox" name="url_encode_placeholder" checked></label></li>
+            <li><label>When URL encoding queries, encode space as '+': <input type="checkbox" name="url_encode_space_to_plus" checked></label></li>
+        </ul><p>
+        <p><button type="submit">Submit</button> <a is="modal-open" modal="kagi-wizard">(import kagi/ddg bang)</a></p>
+    </form>
 </dialog>
 <dialog id="kagi-wizard">
-<p style="text-align: right;"><button is="dialog-close">Close</button></p>
-<h1>kagi bang importer</h1>
-<p>enter a bang trigger from <a href="https://github.com/kagisearch/bangs" target="_blank">kagi's bangs</a> (use a duckduckgo one, if you don't know kagi's bang set)</p>
-<form method="dialog">
-<p><label>Trigger (!&lt;this&gt; to use this bang): <input type="text" name="t" required></label></p>
-<p><button type="submit">Submit</button></p>
-</form>
+    <p style="text-align: right;"><button is="dialog-close">Close</button></p>
+    <h1>kagi bang importer</h1>
+    <p>enter a bang trigger from <a href="https://github.com/kagisearch/bangs" target="_blank">kagi's bangs</a> (use a duckduckgo one, if you don't know kagi's bang set)</p>
+    <form method="dialog">
+        <p><label>Trigger (!&lt;this&gt; to use this bang): <input type="text" name="t" required></label></p>
+        <p><button type="submit">Submit</button></p>
+    </form>
 </dialog>
 <dialog id="new-user-wizard">
-<p style="text-align: right;"><button is="dialog-close">Close</button></p>
-<h1>Welcome to mallard!</h1>
-<p>mallard is like unduck/unduckified but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
-<p>before we continue, you'll need to decide on a default bang. this is where your search will go if you don't supply a bang to send it somewhere else.</p>
-<form method="dialog">
-<p><label>Default bang: <select name="defaultbang">
-<option value="g" selected>Google (!g)</option>
-<option value="ddg">DuckDuckGo (!ddg)</option>
-<option value=" custom">Custom bang (!&lt;...&gt;)</option>
-</select></label></p>
-<p><button type="submit">Submit</button> <a is="modal-open" modal="import-settings">(or import settings from another computer)</a></p>
-</form>
+    <p style="text-align: right;"><button is="dialog-close">Close</button></p>
+    <h1>Welcome to mallard!</h1>
+    <p>mallard is like unduck/unduckified but <del>overcomplicated</del> <del>overengineered</del> flexible? sure let's go with that.</p>
+    <p>before we continue, you'll need to decide on a default bang. this is where your search will go if you don't supply a bang to send it somewhere else.</p>
+    <form method="dialog">
+        <p><label>Default bang: <select name="defaultbang">
+            <option value="g" selected>Google (!g)</option>
+            <option value="ddg">DuckDuckGo (!ddg)</option>
+            <option value=" custom">Custom bang (!&lt;...&gt;)</option>
+        </select></label></p>
+        <p><button type="submit">Submit</button> <a is="modal-open" modal="import-settings">(or import settings from another computer)</a></p>
+    </form>
 </dialog>`);
     // copy button
     let copybtn = document.querySelector("button[data-what='copy']");
