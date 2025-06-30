@@ -1,0 +1,67 @@
+name: Daily fetch bangs.json from Kagi # yes I stole this from unduckified
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  fetch-bangs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Download bangs.json
+        run: |
+          curl -o bangs.json https://raw.githubusercontent.com/kagisearch/bangs/refs/heads/main/data/bangs.json
+
+      - name: Verify file
+        run: |
+          if [ ! -s bangs.json ]; then
+            echo "Downloaded file is empty"
+            exit 1
+          fi
+          if ! jq empty bangs.json; then
+            echo "Downloaded file is not valid JSON"
+            exit 1
+          fi
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+      - name: Check for changes and commit
+        id: check_changes
+        run: |
+          git add src/bangs/bangs.json src/bangs/hashbang.ts
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          echo "Changes detected in bangs files"
+          
+          # Look for bangs update commits in history
+          git fetch origin main --unshallow
+          
+          # Check if previous commit was a bangs update
+          PREV_COMMIT_MSG=$(git log -1 --pretty=%B)
+          if [[ "$PREV_COMMIT_MSG" == "chore: update bangs.json" ]]; then
+            # Amend the previous commit
+            git commit --amend -m "chore: update bangs.json"
+          else
+            # Create a new commit
+            git commit -m "chore: update bangs.json"
+          fi
+          
+          # Push to main - using force only if we amended
+          if [[ "$PREV_COMMIT_MSG" == "chore: update bangs.json" ]]; then
+            git push --force-with-lease origin main
+          else
+            git push origin main
+          fi
