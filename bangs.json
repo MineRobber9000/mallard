@@ -8,6 +8,14 @@
     "sc": "Downloads (apps)"
   },
   {
+    "s": "ADS-B Exchange",
+    "d": "www.adsbexchange.com",
+    "t": "adsb",
+    "u": "https://www.adsbexchange.com/?icao={{{s}}}",
+    "c": "Research",
+    "sc": "Travel"
+  },
+  {
     "s": "BMW 2002 FAQ",
     "d": "www.bmw2002faq.com",
     "t": "02faq",
@@ -1273,10 +1281,10 @@
     "sc": "Games (offline)"
   },
   {
-    "s": "Abe's Market",
-    "d": "www.abesmarket.com",
+    "s": "Amazon Belgium",
+    "d": "www.amazon.com.be",
     "t": "abe",
-    "u": "https://www.abesmarket.com/catalogsearch/result/?cat=5&order=relevance&dir=desc&q={{{s}}}",
+    "u": "https://www.amazon.com.be/s?k={{{s}}}",
     "c": "Shopping",
     "sc": "Online"
   },
@@ -2895,9 +2903,9 @@
   },
   {
     "s": "alesund kommune",
-    "d": "www.alesund.kommune.no",
+    "d": "alesund.kommune.no",
     "t": "alesund",
-    "u": "https://www.alesund.kommune.no/component/finder/search?q={{{s}}}&Itemid=406",
+    "u": "https://alesund.kommune.no/sok.aspx?MId1=8&searchTerm={{{s}}}",
     "c": "Online Services",
     "sc": "Social"
   },
@@ -4520,7 +4528,7 @@
   {
     "s": "Amazon Prime Now",
     "d": "primenow.amazon.com",
-    "t": "aNOW",
+    "t": "anow",
     "u": "https://primenow.amazon.com/search?k={{{s}}}",
     "c": "Shopping",
     "sc": "Online"
@@ -5500,7 +5508,7 @@
     "s": "ArchLinux User Repository",
     "d": "aur.archlinux.org",
     "t": "archaur",
-    "u": "https://aur.archlinux.org/packages.php?O=0&K={{{s}}}&do_Search=Go",
+    "u": "https://aur.archlinux.org/packages?O=0&K={{{s}}}",
     "c": "Tech",
     "sc": "Languages (other)"
   },
@@ -6732,7 +6740,7 @@
   {
     "s": "XE (AUD2EUR)",
     "d": "www.xe.com",
-    "t": "AUD2EUR",
+    "t": "aud2eur",
     "u": "https://www.xe.com/currencyconverter/convert/?Amount={{{s}}}&From=AUD&To=EUR",
     "c": "Online Services",
     "sc": "Tools"
@@ -6740,7 +6748,7 @@
   {
     "s": "XE (AUD2GBP)",
     "d": "www.xe.com",
-    "t": "AUD2GDP",
+    "t": "aud2gdp",
     "u": "https://www.xe.com/currencyconverter/convert/?Amount={{{s}}}&From=AUD&To=GBP",
     "c": "Online Services",
     "sc": "Tools"
@@ -7789,7 +7797,7 @@
   {
     "s": "Pipl - Profile Search enguine",
     "d": "pipl.com",
-    "t": "BangPeople",
+    "t": "bangpeople",
     "u": "https://pipl.com/search/?q={{{s}}}",
     "c": "Online Services",
     "sc": "Search"
@@ -9723,7 +9731,7 @@
   {
     "s": "Bing UK",
     "d": "bing.co.uk",
-    "t": "Binguk",
+    "t": "binguk",
     "u": "https://bing.co.uk/?q={{{s}}}",
     "c": "Online Services",
     "sc": "Search (non-US)"
@@ -12697,7 +12705,7 @@
   {
     "s": "CajunLyrics",
     "d": "www.cajunlyrics.com",
-    "t": "CajunLyrics",
+    "t": "cajunlyrics",
     "u": "https://www.cajunlyrics.com/?page=search&word={{{s}}}",
     "c": "Multimedia",
     "sc": "Music (Lyrics)"
@@ -16222,7 +16230,7 @@
   {
     "s": "Colorado State University library",
     "d": "colostate-primo.hosted.exlibrisgroup.com",
-    "t": "Cololib",
+    "t": "cololib",
     "u": "https://colostate-primo.hosted.exlibrisgroup.com/primo-explore/search?vid=01COLSU&lang=en_US&primoQueryTemp=d&search_field=any&search_scope=Everything&query=any,contains,{{{s}}}",
     "c": "Research",
     "sc": "Academic"
@@ -16700,7 +16708,7 @@
   {
     "s": "Coolapk",
     "d": "www.coolapk.com",
-    "t": "Coolapk",
+    "t": "coolapk",
     "u": "https://www.coolapk.com/search?q={{{s}}}",
     "c": "Tech",
     "sc": "Downloads (apps)"
@@ -20510,9 +20518,9 @@
   },
   {
     "s": "Deichmanske Biblotek",
-    "d": "sok.deichman.no",
+    "d": "deichman.no",
     "t": "deic",
-    "u": "https://sok.deichman.no/search?query={{{s}}}",
+    "u": "https://deichman.no/sok/{{{s}}}",
     "c": "Research",
     "sc": "Academic"
   },
@@ -23834,7 +23842,7 @@
   {
     "s": "Discord Servers",
     "d": "discordservers.com",
-    "t": "DscSrv",
+    "t": "dscsrv",
     "u": "https://discordservers.com/?term={{{s}}}",
     "c": "Online Services",
     "sc": "Social"
@@ -35047,6 +35055,14 @@
     "sc": "Programming"
   },
   {
+    "s": "grep.app",
+    "d": "grep.app",
+    "t": "grep",
+    "u": "https://grep.app/search?q={{{s}}}",
+    "c": "Tech",
+    "sc": "Programming"
+  },
+  {
     "s": "Geizhals",
     "d": "geizhals.de",
     "t": "ghde",
@@ -40616,7 +40632,7 @@
   {
     "s": "Detect language to Chinese",
     "d": "translate.google.com",
-    "t": "gtzh-CN",
+    "t": "gtzh-cn",
     "u": "https://translate.google.com/#auto/zh-CN/{{{s}}}",
     "c": "Translation",
     "sc": "Google"
@@ -40624,7 +40640,7 @@
   {
     "s": "Detect language to traditional Chinese",
     "d": "translate.google.com",
-    "t": "gtzh-TW",
+    "t": "gtzh-tw",
     "u": "https://translate.google.com/#auto/zh-TW/{{{s}}}",
     "c": "Online Services",
     "sc": "Google"
@@ -45962,7 +45978,7 @@
     "s": "Innsida NTNU",
     "d": "innsida.ntnu.no",
     "t": "innsida",
-    "u": "https://innsida.ntnu.no/sok?site=innsida&query={{{s}}}&category=all",
+    "u": "https://innsida.ntnu.no/sok/?q={{{s}}}",
     "c": "Research",
     "sc": "Academic"
   },
@@ -47757,6 +47773,14 @@
     "sc": "Online (marketplace)"
   },
   {
+    "s": "JetPhotos",
+    "d": "www.jetphotos.com",
+    "t": "jetphoto",
+    "u": "https://www.jetphotos.com/photo/keyword/{{{s}}}",
+    "c": "Research",
+    "sc": "Travel"
+  },
+  {
     "s": "JeuxVideo",
     "d": "www.jeuxvideo.com",
     "t": "jeux",
@@ -48932,7 +48956,7 @@
   {
     "s": "KarmaPlace",
     "d": "www.karmaplace.com",
-    "t": "KarmaPlace",
+    "t": "karmaplace",
     "u": "https://www.karmaplace.com/catalogsearch/result/?q={{{s}}}",
     "c": "Shopping",
     "sc": "Online (marketplace)"
@@ -54599,7 +54623,7 @@
   {
     "s": "Lazada Malaysia",
     "d": "www.lazada.com.my",
-    "t": "LzdMy",
+    "t": "lzdmy",
     "u": "https://www.lazada.com.my/catalog/?q={{{s}}}",
     "c": "Shopping",
     "sc": "Online"
@@ -55844,7 +55868,7 @@
     "s": "MatPrat",
     "d": "www.matprat.no",
     "t": "matprat",
-    "u": "https://www.matprat.no/sok/#1/all/{{{s}}}/",
+    "u": "https://www.matprat.no/sok?searchFor={{{s}}}",
     "c": "Research",
     "sc": "Food"
   },
@@ -61640,7 +61664,7 @@
     "s": "Nasjonalbiblioteket",
     "d": "www.nb.no",
     "t": "nb",
-    "u": "https://www.nb.no/nbsok/search?page=0&menuOpen=false&instant=true&action=search&currentHit=-1&searchString={{{s}}}",
+    "u": "https://www.nb.no/search?q={{{s}}}",
     "c": "Multimedia",
     "sc": "Books"
   },
@@ -61824,7 +61848,7 @@
     "s": "NDLA",
     "d": "ndla.no",
     "t": "ndla",
-    "u": "https://ndla.no/en/search/apachesolr_search/{{{s}}}?language[]=und&filters=1/",
+    "u": "https://ndla.no/search?query={{{s}}}",
     "c": "Research",
     "sc": "Academic"
   },
@@ -63022,6 +63046,14 @@
     "sc": "Downloads"
   },
   {
+    "s": "MyNixOS",
+    "d": "mynixos.com",
+    "t": "mynixos",
+    "u": "https://mynixos.com/search?q={{{s}}}",
+    "c": "Tech",
+    "sc": "Sysadmin"
+  },
+  {
     "s": "Njalla",
     "d": "njal.la",
     "t": "njalla",
@@ -63148,6 +63180,14 @@
     "u": "https://nolife-wiki.fr/index.php?title=Spécial:Recherche&go=Lire&search={{{s}}}",
     "c": "Research",
     "sc": "Reference"
+  },
+  {
+    "s": "Llyfrgell Genedlaethol Cymru = The National Library of Wales",
+    "d": "discover.library.wales",
+    "t": "nlwc",
+    "u": "https://discover.library.wales/discovery/search?query=any,contains,{{{s}}}&tab=In_The_Library&search_scope=In_The_Library&vid=44WHELF_NLW:44WHELF_NLW_NUI&offset=0",
+    "c": "Research",
+    "sc": "Academic"
   },
   {
     "s": "Naver Map",
@@ -63426,7 +63466,7 @@
     "s": "Norid",
     "d": "www.norid.no",
     "t": "norid",
-    "u": "https://www.norid.no/index.html?charset=UTF-8&page=index&sok=Søk&query={{{s}}}",
+    "u": "https://www.norid.no/?s={{{s}}}",
     "c": "Tech",
     "sc": "Domains"
   },
@@ -66546,9 +66586,9 @@
     "s": "openSUSE",
     "d": "software.opensuse.org",
     "t": "os",
-    "u": "https://software.opensuse.org/search?utf8=%E2%9C%93&q={{{s}}}&search_devel=false&search_unsupported=false&baseproject=openSUSE:13.1",
+    "u": "https://software.opensuse.org/search?q={{{s}}}",
     "c": "Tech",
-    "sc": "Sysadmin (RedHat)"
+    "sc": "Sysadmin"
   },
   {
     "s": "Open Source Routing Machine",
@@ -68570,7 +68610,7 @@
   {
     "s": "Perlentaucher",
     "d": "www.perlentaucher.de",
-    "t": "Perlen",
+    "t": "perlen",
     "u": "https://www.perlentaucher.de/nsuche?q={{{s}}}",
     "c": "Entertainment",
     "sc": "Misc"
@@ -70938,7 +70978,7 @@
     "s": "Posten",
     "d": "sporing.posten.no",
     "t": "posten",
-    "u": "https://sporing.posten.no/sporing.html?lang=no&q={{{s}}}&submit=",
+    "u": "https://sporing.posten.no/sporing.html/{{{s}}}",
     "c": "Online Services",
     "sc": "Tracking"
   },
@@ -85216,6 +85256,14 @@
     "sc": "Tracking"
   },
   {
+    "s": "Swiss Post",
+    "d": "www.post.ch",
+    "t": "postch",
+    "u": "https://www.post.ch/EasyTrack/submitParcelData.do?formattedParcelCodes={{{s}}}",
+    "c": "Shopping",
+    "sc": "Services"
+  },
+  {
     "s": "SWI-Prolog",
     "d": "www.swi-prolog.org",
     "t": "swi",
@@ -93385,7 +93433,7 @@
     "s": "VårtOslo",
     "d": "www.vartoslo.no",
     "t": "vartoslo",
-    "u": "https://www.vartoslo.no/?s={{{s}}}",
+    "u": "https://www.vartoslo.no/cse?q={{{s}}}",
     "c": "News",
     "sc": "Newspaper"
   },
@@ -102541,7 +102589,7 @@
   {
     "s": "Λεξικό",
     "d": "el.m.wiktionary.org",
-    "t": "Λεξικό",
+    "t": "λεξικό",
     "u": "https://el.m.wiktionary.org/wiki/{{{s}}}",
     "c": "Research",
     "sc": "Academic"
@@ -106739,7 +106787,7 @@
   {
     "s": "Βικιπαίδεια",
     "d": "el.m.wikipedia.org",
-    "t": "Βικι",
+    "t": "βικι",
     "u": "https://el.m.wikipedia.org/wiki/{{{s}}}",
     "c": "Research",
     "sc": "Academic"
@@ -107221,7 +107269,7 @@
     "s": "Kagi Translate (Proofread)",
     "d": "translate.kagi.com",
     "t": "kpr",
-    "u": "https://translate.kagi.com/?text={{{s}}}&from=Automatic&to=Proofread",
+    "u": "https://translate.kagi.com/proofread?text={{{s}}}&from=auto",
     "c": "Translation",
     "sc": "General"
   },
@@ -107299,5 +107347,21 @@
     "u": "https://vibe.naver.com/search?query={{{s}}}",
     "c": "Multimedia",
     "sc": "Music"
+  },
+  {
+    "s": "winget.run",
+    "d": "winget.run",
+    "t": "winget",
+    "u": "https://winget.run/search?query={{{s}}}",
+    "c": "Tech",
+    "sc": "Downloads (apps)"
+  },
+  {
+    "s": "Libro.fm",
+    "d": "libro.fm",
+    "t": "libro",
+    "u": "https://libro.fm/search?utf8=%E2%9C%93&q={{{s}}}",
+    "c": "Shopping",
+    "sc": "Online"
   }
 ]
