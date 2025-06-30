@@ -36,7 +36,7 @@ jobs:
       - name: Check for changes and commit
         id: check_changes
         run: |
-          git add src/bangs/bangs.json src/bangs/hashbang.ts
+          git add bangs.json
           
           # Check if there are changes to commit
           if git diff --staged --quiet; then
