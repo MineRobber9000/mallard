@@ -258,6 +258,15 @@ function renderIndex() {
                         delete bang.c;
                         delete bang.sc;
                         bangdata = bang;
+                    } else if (bang.ts) {
+                        bang.ts.forEach((alt)=>{
+                            if (alt===trigger) {
+                                delete bang.c;
+                                delete bang.sc;
+                                bang.t = alt;
+                                bangdata = bang;
+                            }
+                        });
                     }
                 });
             }

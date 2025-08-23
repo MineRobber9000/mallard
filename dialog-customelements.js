@@ -44,7 +44,7 @@ if ('customElements' in window) {
         loadBang(bang, track = true) {
             this.resetForm();
             Object.keys(bang).forEach((key)=>{
-                if (key==="fmt") return;
+                if (key==="fmt" || key==="ts") return;
                 this.form.elements[key].value = bang[key];
             });
             if ("fmt" in bang) {
