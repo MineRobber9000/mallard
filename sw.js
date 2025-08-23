@@ -17,7 +17,7 @@ this.addEventListener("fetch", async (ev)=>{
     let cache = await caches.open("v1");
     let match = await cache.match(ev.request);
     if (match) {
-        ev.waitUntil(cache.add(event.request));
+        ev.waitUntil(cache.add(ev.request));
         ev.respondWith(match);
         return;
     }
